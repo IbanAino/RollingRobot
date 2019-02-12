@@ -19,7 +19,7 @@ bool RotaryIncrementalEncoder::flagMeasureRotation;
 //PID settings and gains
 #define OUTPUT_MIN 0
 #define OUTPUT_MAX 255
-#define KP 1
+#define KP 1.2
 #define KI .0003
 #define KD 0
 double motorSpeedMeasure, desiredMotorSpeed, outputVal;
@@ -50,6 +50,9 @@ void setup() {
   
   Encoder1->StartSpeedMeasurement();
   //Encoder2->StartSpeedMeasurement();
+
+
+  desiredMotorSpeed = 42;
 }
 
 
@@ -57,22 +60,31 @@ void setup() {
 
 void loop() {
   // Listen the computer to get the speed order
+  /*
   if (Serial.available() > 0) {
-        incomingByte = Serial.read();
-
-        if(incomingByte == 0xA){
-          desiredMotorSpeed = finalMessageSended;
-          finalMessageSended = 0;
-          Serial.println(desiredMotorSpeed);
-        }else if(0x29 < incomingByte < 0x3A){ // incomingByte between 0 and 9
-          finalMessageSended = (finalMessageSended * 10) + (incomingByte - 0x30);
-        }   
+    incomingByte = Serial.read();
+  
+    if(incomingByte == 0xA){
+      desiredMotorSpeed = finalMessageSended;
+      finalMessageSended = 0;
+      //Serial.println(desiredMotorSpeed);
+    }else if(0x29 < incomingByte < 0x3A){ // incomingByte between 0 and 9
+      finalMessageSended = (finalMessageSended * 10) + (incomingByte - 0x30);
+    }   
   }
+  */
 
-  Serial.print(Encoder1->GetSpeed());
-  //Serial.print(", ");
-  //Serial.print(Encoder2->GetSpeed());
+  motorSpeedMeasure = Encoder1->GetSpeed();
+  
+  myPID.run();
+  Serial.print(desiredMotorSpeed);
+  Serial.print(", ");
+  Serial.print(motorSpeedMeasure);
+  Serial.print(", ");
+  Serial.print(outputVal);
   Serial.println();
 
-  delay(100);
+ 
+
+  //delay(100);
 }
