@@ -25,8 +25,7 @@ void DcMotor::setMotorSpeed(uint8_t motorSpeed){
   desiredMotorSpeed = 180;
   motorSpeedMeasure = Encoder1->GetSpeed(); 
   myPID->run();
-  analogWrite(7, outputVal);
-  
+  analogWrite(speedHardwarePinout, outputVal);
 
   Serial.print(desiredMotorSpeed);
   Serial.print(", ");
@@ -36,6 +35,4 @@ void DcMotor::setMotorSpeed(uint8_t motorSpeed){
   Serial.print(", ");
   Serial.print(desiredMotorSpeed - motorSpeedMeasure);
   Serial.println();
-  
-  //analogWrite(7, 150);
 }

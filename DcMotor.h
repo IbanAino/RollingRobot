@@ -51,8 +51,6 @@ class DcMotor
     double motorSpeedMeasure, desiredMotorSpeed, outputVal;
     
     // Hardware pinout
-    #define speedHardwarePinout = 7;
-
-  
+    #define speedHardwarePinout 7
 };
 #endif
