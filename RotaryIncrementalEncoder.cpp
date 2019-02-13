@@ -41,6 +41,7 @@ RotaryIncrementalEncoder::RotaryIncrementalEncoder(uint8_t encoderID){
 
 
 // FUNCTIONS
+
 void RotaryIncrementalEncoder::StartSpeedMeasurement(){
   flagMeasureSpeed = true;
   

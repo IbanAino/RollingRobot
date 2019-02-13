@@ -54,19 +54,12 @@ class RotaryIncrementalEncoder
     // Time scheduler to compute speed
     unsigned long timeMilllisecond;
 
-    // Static members
-    //#ifndef static int16_t encoder1_RotationCounter;
-    //#define static int16_t encoder1_RotationCounter;
-    //#endif
-
-    
+    // Static members   
     static int16_t encoder1_RotationCounter;
     static int16_t encoder2_RotationCounter;
     static uint16_t encoder1_SpeedCounter;
     static uint16_t encoder2_SpeedCounter;
     static bool flagMeasureSpeed; 
     static bool flagMeasureRotation;
-    
 };
-
 #endif
