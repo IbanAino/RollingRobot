@@ -37,8 +37,8 @@ void RotaryIncrementalEncoder::StartSpeedMeasurement(){
   flagMeasureSpeed = true;
   
   // Reset couteres and timer
-  encoderSpeedRightCounter = 0;
-  encoderSpeedLeftCounter = 0;
+  encoder1_SpeedCounter = 0;
+  encoder2_SpeedCounter = 0;
   timeMilllisecond = millis();
 }
 
@@ -49,15 +49,15 @@ void RotaryIncrementalEncoder::StopSpeedMeasurement(){
 int16_t RotaryIncrementalEncoder::GetSpeed(){
   
   if(encoderID == 1){
-    int16_t motorSpeed = (encoderSpeedRightCounter * 100)/(millis() - timeMilllisecond);
+    int16_t motorSpeed = (encoder1_SpeedCounter * 100)/(millis() - timeMilllisecond);
     timeMilllisecond = millis();
-    encoderSpeedRightCounter = 0;
+    encoder1_SpeedCounter = 0;
     return(motorSpeed);
   }
   else if(encoderID == 2){
-    int16_t motorSpeed = (encoderSpeedLeftCounter * 100)/(millis() - timeMilllisecond);
+    int16_t motorSpeed = (encoder2_SpeedCounter * 100)/(millis() - timeMilllisecond);
     timeMilllisecond = millis();
-    encoderSpeedLeftCounter = 0;
+    encoder2_SpeedCounter = 0;
     return(motorSpeed);
   } 
 }
@@ -73,10 +73,10 @@ void RotaryIncrementalEncoder::StopRotationMeasurement(){
 int16_t RotaryIncrementalEncoder::GetRotation(){
   switch(encoderID){
     case 1 :
-      return(encoderRotationRightCounter);
+      return(encoder1_RotationCounter);
     break;
     case 2 :
-      return(encoderRotationLeftCounter);
+      return(encoder2_RotationCounter);
     break;
   }
 }
@@ -85,22 +85,22 @@ int16_t RotaryIncrementalEncoder::GetRotation(){
 static void RotaryIncrementalEncoder::handleInterruptA(){
   // Speed measurement
   if(flagMeasureSpeed){
-    encoderSpeedRightCounter++;
+    encoder1_SpeedCounter++;
   }
   
   // Rotation measurement
   if(flagMeasureRotation){
     if (digitalRead(2) == HIGH) {
       if (digitalRead(3) == LOW) {
-        encoderRotationRightCounter++;
+        encoder1_RotationCounter++;
       } else {
-        encoderRotationRightCounter--;
+        encoder1_RotationCounter--;
       }
     } else {
       if (digitalRead(3) == LOW) {
-        encoderRotationRightCounter--;
+        encoder1_RotationCounter--;
       } else {
-        encoderRotationRightCounter++;
+        encoder1_RotationCounter++;
       }
     }
   }
@@ -110,22 +110,22 @@ static void RotaryIncrementalEncoder::handleInterruptA(){
 void RotaryIncrementalEncoder::handleInterruptC(){
   // Speed measurement
   if(flagMeasureSpeed){
-    encoderSpeedLeftCounter++;
+    encoder2_SpeedCounter++;
   }
   
   // Rotation measurement
   if(flagMeasureRotation){
     if (digitalRead(18) == HIGH) {
       if (digitalRead(19) == LOW) {
-        encoderRotationLeftCounter++;
+        encoder2_RotationCounter++;
       } else {
-        encoderRotationLeftCounter--;
+        encoder2_RotationCounter--;
       }
     } else {
       if (digitalRead(19) == LOW) {
-        encoderRotationLeftCounter--;
+        encoder2_RotationCounter--;
       } else {
-        encoderRotationLeftCounter++;
+        encoder2_RotationCounter++;
       }
     }
   }
