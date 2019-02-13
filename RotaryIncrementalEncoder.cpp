@@ -1,6 +1,14 @@
 #include "RotaryIncrementalEncoder.h"
 #include <arduino.h>
 
+// Static variables declarations
+uint16_t RotaryIncrementalEncoder::encoder1_SpeedCounter;
+uint16_t RotaryIncrementalEncoder::encoder2_SpeedCounter;
+int16_t RotaryIncrementalEncoder::encoder1_RotationCounter;
+int16_t RotaryIncrementalEncoder::encoder2_RotationCounter;
+bool RotaryIncrementalEncoder::flagMeasureSpeed;
+bool RotaryIncrementalEncoder::flagMeasureRotation;
+
 
 // CONSTRUCTOR
 RotaryIncrementalEncoder::RotaryIncrementalEncoder(uint8_t encoderID){
