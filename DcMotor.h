@@ -46,8 +46,8 @@ class DcMotor
     #define OUTPUT_MIN 0
     #define OUTPUT_MAX 255
     #define KP 10
-    #define KI 3
-    #define KD 1
+    #define KI .00000001
+    #define KD 10
     double motorSpeedMeasure, desiredMotorSpeed, outputVal;
     
     // Hardware pinout

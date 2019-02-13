@@ -35,5 +35,5 @@ void setup() {
 //*** MAIN LOOP ***
 
 void loop() {
-  motor1 -> setMotorSpeed(150);
+  motor1 -> setMotorSpeed(120);
 }

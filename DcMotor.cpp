@@ -14,6 +14,7 @@ DcMotor::DcMotor(uint8_t motorID){
   Encoder1 = new RotaryIncrementalEncoder(motorID);
   myPID = new AutoPID(&motorSpeedMeasure, &desiredMotorSpeed, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
   myPID->setTimeStep(2);
+  myPID->setBangBang(100);
   Encoder1->StartSpeedMeasurement();
 }
 
@@ -22,7 +23,7 @@ DcMotor::DcMotor(uint8_t motorID){
 
 void DcMotor::setMotorSpeed(uint8_t motorSpeed){
 
-  desiredMotorSpeed = 180;
+  desiredMotorSpeed = motorSpeed;
   motorSpeedMeasure = Encoder1->GetSpeed(); 
   myPID->run();
   analogWrite(speedHardwarePinout, outputVal);
