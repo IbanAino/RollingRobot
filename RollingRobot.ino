@@ -5,16 +5,6 @@
 #include "DcMotor.h"
 
 
-//*** VARIABLES ***
-
-//PID settings and gains
-#define OUTPUT_MIN 0
-#define OUTPUT_MAX 255
-#define KP 10
-#define KI 3
-#define KD 1
-double motorSpeedMeasure, desiredMotorSpeed, outputVal;
-
 
 //*** OBJECTS ***
 
@@ -28,7 +18,8 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Start programm");
 
-  motor1 = new DcMotor(1);
+  motor1 = new DcMotor(1, 28, 29);
+  motor1 -> setMotorSense(false);
 }
 
 

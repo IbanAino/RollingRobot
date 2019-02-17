@@ -25,11 +25,12 @@ class DcMotor
 {
   public:
     // Constructor
-    DcMotor(uint8_t motorID);
+    DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2);
 
     // Functions
     void setMotorSpeed(uint8_t motorSpeed);
     void setMotorPosition();
+    void setMotorSense(bool sense);
 
   private:
     // Objects
@@ -41,16 +42,23 @@ class DcMotor
     // Variables
 
     uint8_t motorID;
+    uint8_t hardwarePinHStructureIN1;
+    uint8_t hardwarePinHStructureIN2;
   
     //PID settings and gains
     #define OUTPUT_MIN 0
     #define OUTPUT_MAX 255
-    #define KP 10
-    #define KI .00000001
-    #define KD 10
+    //#define KP 10
+    //#define KI .00000001
+    //#define KD 10
+
+    #define KP 3
+    #define KI .02
+    #define KD 0.1
+    
     double motorSpeedMeasure, desiredMotorSpeed, outputVal;
     
     // Hardware pinout
-    #define speedHardwarePinout 7
+    #define hardwarePinoutSpeed 7
 };
 #endif
