@@ -23,10 +23,12 @@ DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hard
   // Set encoder and PID
   Encoder1 = new RotaryIncrementalEncoder(motorID);
   myPID = new AutoPID(&motorSpeedMeasure, &desiredMotorSpeed, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
-  myPID->setTimeStep(2);
-  myPID->setBangBang(100);
+  //myPID->setTimeStep(2);
+  //myPID->setBangBang(100);
   Encoder1->StartSpeedMeasurement();
 
+
+  //═══ ISR settings block ═══
   // Set Timer2 to run the PID several times per second inside an Interrupt Service Routine
   
   TIMSK2 = (TIMSK2 & B11111001) | 0x06;    // TIMSKx - Timer/Counter Interrupt Mask Register. To enable/disable timer interrupts.
@@ -56,6 +58,7 @@ DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hard
 
   pinMode(13, OUTPUT);
   pinMode(9, OUTPUT);
+  //══════════════════
 }
 
 
@@ -75,7 +78,7 @@ void DcMotor::setMotorSpeed(uint8_t motorSpeed){
 
   desiredMotorSpeed = motorSpeed;
   motorSpeedMeasure = Encoder1->GetSpeed(); 
-  myPID->run();
+  //myPID->run();
   analogWrite(hardwarePinoutSpeed, outputVal);
 /*
   Serial.print(desiredMotorSpeed);
@@ -89,6 +92,12 @@ void DcMotor::setMotorSpeed(uint8_t motorSpeed){
   */
 }
 
-ISR(TIMER2_COMPA_vect){
-  digitalWrite(13, digitalRead(13) ^ 1); 
+//═══ ISR Functions block ═══
+void DcMotor::IsrFunction(){
+  digitalWrite(13, digitalRead(13) ^ 1);
 }
+
+ISR(TIMER2_COMPA_vect){
+  DcMotor::IsrFunction();
+}
+//══════════════════

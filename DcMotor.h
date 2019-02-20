@@ -36,7 +36,10 @@ class DcMotor
     void setMotorSense(bool sense);
 
     // Static function
+    //═══ ISR Functions block ═══
     friend void TIMER2_COMPA_vect(void);
+    static void IsrFunction();
+    //══════════════════
 
   private:
     // Objects

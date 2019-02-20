@@ -22,8 +22,8 @@ void setup() {
   motor1 -> setMotorSense(false);
 
   motor2 = new DcMotor(2, 32, 33);
-
-   motor1 -> setMotorSpeed(120);
+  
+  motor1 -> setMotorSpeed(120);
 }
 
 
