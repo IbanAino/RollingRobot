@@ -21,7 +21,7 @@
 #include "RotaryIncrementalEncoder.h"
 #include <AutoPID.h>
 
-
+// Set Timer2 to run the PID several times per second inside an Interrupt Service Routine
 extern "C" void TIMER2_COMPA_vect(void)  __attribute__ ((signal));
 
 class DcMotor
