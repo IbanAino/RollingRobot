@@ -4,12 +4,12 @@
 #include "RotaryIncrementalEncoder.h"
 #include "DcMotor.h"
 
-
+//volatile byte state = LOW;
 
 //*** OBJECTS ***
 
 DcMotor* motor1;
-
+//DcMotor* motor2;
 
 //*** SETUP ***
 
@@ -20,11 +20,15 @@ void setup() {
 
   motor1 = new DcMotor(1, 28, 29);
   motor1 -> setMotorSense(false);
+
+  //motor2 = new DcMotor(2, 32, 33);
+
+   motor1 -> setMotorSpeed(120);
 }
 
 
 //*** MAIN LOOP ***
 
 void loop() {
-  motor1 -> setMotorSpeed(120);
+   //digitalWrite(13, state); 
 }
