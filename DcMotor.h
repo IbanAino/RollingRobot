@@ -32,10 +32,11 @@
 #ifndef DcMotor_h
 #define DcMotor_h
 
+
 //*** LIBRARIES ***
+
 #include <arduino.h>
 #include "RotaryIncrementalEncoder.h"
-#include <AutoPID.h>
 #include "PidController.h"
 
 // Set Timer2 to run the PID several times per second inside an Interrupt Service Routine
@@ -60,7 +61,7 @@ class DcMotor
 
     //*** OBJECTS ***
     RotaryIncrementalEncoder* Encoder;
-    AutoPID* myPID;
+    //AutoPID* myPID;
     PidController* MyPidController;
 
     //*** VARIABLES ***
@@ -68,23 +69,6 @@ class DcMotor
     uint8_t hardwarePinHStructureIN1;
     uint8_t hardwarePinHStructureIN2;
     static DcMotor* dcMotorObjects[3];
-  
-    //PID settings and gains
-    #define OUTPUT_MIN 0
-    #define OUTPUT_MAX 255
-    
-    #define KP 10
-    #define KI .00000001
-    #define KD 10
-    /*
-    #define KP 3
-    #define KI .02
-    #define KD 0.1
-    */
-    
-    double desiredMotorSpeed;
-    double outputVal;
-    double motorSpeedMeasure;
 
     static volatile double isrPidOutput;
     

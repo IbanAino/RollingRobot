@@ -22,15 +22,17 @@ REGISTERS DOCUMENTATION FOR TIMER2 :
     |------|------|------|------|------|------|------|------|       WGM = Wave Generator Mode
         W      W      R      R    R/W    R/W    R/W    R/W          CS = Clock Selector
 */
+
+
 //*** LIBRARIES ***
 
 #include "DcMotor.h"
 #include <arduino.h>
-#include <AutoPID.h>
 #include "PidController.h"
 
 
 //*** Static variables declarations ***
+
 DcMotor* DcMotor::dcMotorObjects[3];
 double volatile DcMotor::isrPidOutput = 40;
 
@@ -51,11 +53,7 @@ DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hard
 
   // Set encoder and PID
   Encoder = new RotaryIncrementalEncoder(motorID);
-  myPID = new AutoPID(&motorSpeedMeasure, &desiredMotorSpeed, &outputVal, OUTPUT_MIN, OUTPUT_MAX, KP, KI, KD);
-  myPID->setTimeStep(10);
-  myPID->setBangBang(100);
   Encoder->StartSpeedMeasurement();
-
   MyPidController = new PidController(0.1, 1, 1, 0, 255);
 
   //╔═══ ISR settings block ═══╗
@@ -89,7 +87,6 @@ void DcMotor::setMotorSense(bool sense){
 }
 
 void DcMotor::setMotorSpeed(uint8_t motorSpeed){
-  desiredMotorSpeed = motorSpeed;
   MyPidController -> SetSetPoint(motorSpeed);
 }
 
@@ -108,27 +105,7 @@ void DcMotor::IsrFunction(){
       analogWrite(7, dcMotorObjects[i]->outputVal);
     }
   }*/
-  //double desiredMotorSpeed = dcMotorObjects[1]->desiredMotorSpeed;
-  //double speedMotor = dcMotorObjects[1]->Encoder->GetSpeed();
-
-  //double error = desiredMotorSpeed - speedMotor;
-
-  //dcMotorObjects[1]->outputVal += (error * 0.01);
-
-  //double tempSpeedMeasurement = dcMotorObjects[1]->Encoder->GetSpeed();
-  //double tempMotorSpeed = dcMotorObjects[1]->MyPidController->Compute(dcMotorObjects[1]->Encoder->GetSpeed());
-  //analogWrite(7, tempMotorSpeed);
   analogWrite(7, dcMotorObjects[1]->MyPidController->Compute(dcMotorObjects[1]->Encoder->GetSpeed()));
-/*
-  Serial.print(dcMotorObjects[1]->Encoder->GetSpeed());
-  Serial.print(", ");
-  Serial.print(tempMotorSpeed);
-  Serial.print(", ");
-  Serial.print(desiredMotorSpeed);
-  //Serial.print(", ");
-  //Serial.print(dcMotorObjects[1]->outputVal);
-  Serial.println();
-  */
 }
 
 ISR(TIMER2_COMPA_vect){
