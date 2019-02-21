@@ -14,13 +14,13 @@ This PID does not have any time manager because its functions are supposed to be
 | +float Compute(float measurement)         |
 |                                           |
 |-------------------------------------------|
-| -float kP;                                |
-| -float kI;                                |
-| -float kD;                                |
-| -float setPoint;                          |
-| -float outputMin;                         |
-| -float outputMax;                         |
-| -float outputVal;                         |
+| -float kP                                 |
+| -float kI                                 |
+| -float kD                                 |
+| -float setPoint                           |
+| -float outputMin                          |
+| -float outputMax                          |
+| -float outputVal                          |
 |                                           |
 |-------------------------------------------|
 

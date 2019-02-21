@@ -6,6 +6,15 @@ The first encoder is plugged on pins 2 and 3.
 The sescond encoder is plugged on pins 18 and 19.
 You can change this values inside the cpp file.
 You can upgrade this code to add a third encoder, plugged on pins 20 and 21.
+
+|-----------|->pin2
+| Encoder 1 |->pin3
+|-----------|
+
+|-----------|->pin18
+| Encoder 2 |->pin19
+|-----------|
+
 */
 
 /*

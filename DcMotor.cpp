@@ -34,16 +34,16 @@ REGISTERS DOCUMENTATION FOR TIMER2 :
 //*** Static variables declarations ***
 
 DcMotor* DcMotor::dcMotorObjects[3];
-double volatile DcMotor::isrPidOutput = 40;
 
 
 //*** CONSTRUCTOR ***
 
-DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2){
+DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2, uint8_t hardwarePinHStructurePWM){
 
   this -> motorID = motorID; // Two motors availables : motor 1 and motor 2
   this -> hardwarePinHStructureIN1 = hardwarePinHStructureIN1;
   this -> hardwarePinHStructureIN2 = hardwarePinHStructureIN2;
+  this -> hardwarePinHStructurePWM = hardwarePinHStructurePWM;
 
   // Set motor sense to stop
   pinMode(hardwarePinHStructureIN1, OUTPUT);
@@ -92,20 +92,13 @@ void DcMotor::setMotorSpeed(uint8_t motorSpeed){
 
 //╔═══ ISR Functions block ═══╗
 void DcMotor::IsrFunction(){
-  digitalWrite(13, digitalRead(13) ^ 1);
+  //digitalWrite(13, digitalRead(13) ^ 1);
   // Call all of the DcMotor objects instanciated stored in the array dcMotorObjects
-  /*
   for(uint8_t i = 1; i < 3; i++){
     if(dcMotorObjects[i] != NULL){
-      // Get current speed :
-      dcMotorObjects[i]->motorSpeedMeasure = 10;
-      // Compute PID :
-      dcMotorObjects[i]->myPID->run();
-      // Control the motor :
-      analogWrite(7, dcMotorObjects[i]->outputVal);
+      analogWrite(dcMotorObjects[i]->hardwarePinHStructurePWM, dcMotorObjects[i]->MyPidController->Compute(dcMotorObjects[i]->Encoder->GetSpeed()));
     }
-  }*/
-  analogWrite(7, dcMotorObjects[1]->MyPidController->Compute(dcMotorObjects[1]->Encoder->GetSpeed()));
+  }
 }
 
 ISR(TIMER2_COMPA_vect){

@@ -4,7 +4,7 @@
 |-------------------------------------------|
 |             DcMotor                       |
 |-------------------------------------------|
-| +DcMotor (uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2)
+| +DcMotor (uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2, uint8_t hardwarePinHStructurePWM)
 | +void setMotorSpeed(uint8_t motorSpeed)   |
 | +void setMotorPosition()                  |
 | +void setMotorSense(bool sense)           |
@@ -16,13 +16,13 @@
 | -RotaryIncrementalEncoder* Encoder        |
 | -AutoPID* myPID                           |
 | -uint8_t motorID;                         |
-| -uint8_t hardwarePinHStructureIN1;        |
-| -uint8_t hardwarePinHStructureIN2;        |
-| -static DcMotor* dcMotorObjects[3];       |
+| -uint8_t hardwarePinHStructureIN1         |
+| -uint8_t hardwarePinHStructureIN2         |
+| -uint8_t hardwarePinHStructurePWM         |
+| -static DcMotor* dcMotorObjects[3]        |
 | -double desiredMotorSpeed;                |
 | -double outputVal;                        |
 | -double motorSpeedMeasure;                |
-| -static volatile double isrPidOutput;     |
 |                                           |
 |-------------------------------------------|
 
@@ -46,7 +46,7 @@ class DcMotor
 {  
   public:
     //*** CONSTRUCTOR ***
-    DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2);
+    DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2, uint8_t hardwarePinHStructurePWM);
 
     //*** FUNCTIONS ***
     void setMotorSpeed(uint8_t motorSpeed);
@@ -61,18 +61,13 @@ class DcMotor
 
     //*** OBJECTS ***
     RotaryIncrementalEncoder* Encoder;
-    //AutoPID* myPID;
     PidController* MyPidController;
 
     //*** VARIABLES ***
     uint8_t motorID;
     uint8_t hardwarePinHStructureIN1;
     uint8_t hardwarePinHStructureIN2;
+    uint8_t hardwarePinHStructurePWM;
     static DcMotor* dcMotorObjects[3];
-
-    static volatile double isrPidOutput;
-    
-    // Hardware pinout
-    #define hardwarePinoutSpeed 7
 };
 #endif
