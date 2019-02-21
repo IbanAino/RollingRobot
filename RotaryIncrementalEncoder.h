@@ -1,11 +1,11 @@
 /*
 The Rotary Incremental Encoder class implements encoders.
 
-This class is made to the Arduino Mega 2560 board.
-The first encoder is plugged to pins 2 and 3.
-The sescond encoder is plugged to pins 18 and 19.
+This class is made for the Arduino Mega 2560 board.
+The first encoder is plugged on pins 2 and 3.
+The sescond encoder is plugged on pins 18 and 19.
 You can change this values inside the cpp file.
-You can upgrade the code to add a third encoder, plugged to pins 20 and 21.
+You can upgrade this code to add a third encoder, plugged on pins 20 and 21.
 */
 
 /*

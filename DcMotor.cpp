@@ -8,7 +8,7 @@ REGISTERS DOCUMENTATION FOR TIMER2 :
     |------|------|------|------|------|------|------|------|       TOIE = Timer Overflow Interrupt Enable
         R      R      R      R     R     R/W    R/W    R/W
   
-  TCCR2A 
+  TCCR2A :
        7      6      5      4      3      2      1      0
     |------|------|------|------|------|------|------|------|       TCCR2A = Timer Counter Control Register, timer n°2, register A
      COM2A1 COM2A0 COM2B1 COM2B0   -      -    WGM21  WGM20         COM = Compare Output Mode
