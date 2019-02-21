@@ -1,16 +1,32 @@
 /*
- * Class description
- *
- *
- *
- *
- *
- *
- *
- *
- *
- */
+ Class description
+ 
+|-------------------------------------------|
+|             DcMotor                       |
+|-------------------------------------------|
+| +DcMotor (uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2)
+| +void setMotorSpeed(uint8_t motorSpeed)   |
+| +void setMotorPosition()                  |
+| +void setMotorSense(bool sense)           |
+|                                           |
+| -friend void TIMER2_COMPA_vect(void)      |
+| -static void IsrFunction()                |
+|                                           |
+|-------------------------------------------|
+| -RotaryIncrementalEncoder* Encoder        |
+| -AutoPID* myPID                           |
+| -uint8_t motorID;                         |
+| -uint8_t hardwarePinHStructureIN1;        |
+| -uint8_t hardwarePinHStructureIN2;        |
+| -static DcMotor* dcMotorObjects[3];       |
+| -double desiredMotorSpeed;                |
+| -double outputVal;                        |
+| -double motorSpeedMeasure;                |
+| -static volatile double isrPidOutput;     |
+|                                           |
+|-------------------------------------------|
 
+*/
 
 
 #ifndef DcMotor_h
@@ -34,15 +50,15 @@ class DcMotor
     void setMotorSpeed(uint8_t motorSpeed);
     void setMotorPosition();
     void setMotorSense(bool sense);
-
+    
+  private:
     //╔═══ ISR Functions block ═══╗
     friend void TIMER2_COMPA_vect(void);
     static void IsrFunction();
     //╚══════════════════╝
 
-  private:
     //*** OBJECTS ***
-    RotaryIncrementalEncoder* Encoder1;
+    RotaryIncrementalEncoder* Encoder;
     AutoPID* myPID;
 
     //*** VARIABLES ***

@@ -1,33 +1,62 @@
 /*
-The Rotary Incremental Encoder class implements encodrs.
+The Rotary Incremental Encoder class implements encoders.
 
-
-// WARNING :
-This class uses iterrupts with staic methods and members.
-That is why static members have to be declared when the class is instancied.
-It is the only particularitie you have to deal with.
-
-
-This class is optimize to the Arduino Mega 2560 board.
+This class is made to the Arduino Mega 2560 board.
 The first encoder is plugged to pins 2 and 3.
 The sescond encoder is plugged to pins 18 and 19.
 You can change this values inside the cpp file.
 You can upgrade the code to add a third encoder, plugged to pins 20 and 21.
 */
 
+/*
+ Class description
+ 
+|-------------------------------------------|
+|       RotaryIncrementalEncoder            |
+|-------------------------------------------|
+| +RotaryIncrementalEncoder(uint8_t encoderID)
+| +void StartSpeedMeasurement()             |
+| +void StopSpeedMeasurement()              |
+| +int16_t GetSpeed()                       |
+| +void StartRotationMeasurement()          |
+| +void StopRotationMeasurement()           |
+| +int16_t GetRotation()                    |
+|                                           |
+| -static void handleInterruptA();          |
+| -static void handleInterruptC();          |
+|                                           |
+|-------------------------------------------|
+| -uint8_t encoderID;                       |
+| -uint8_t hardwarePinEncoderSensorA;       |
+| -uint8_t hardwarePinEncoderSensorB;       |
+| -uint8_t hardwarePinEncoderSensorC;       |
+| -uint8_t hardwarePinEncoderSensorD;       |
+| -unsigned long timeMilllisecond;          |
+| -static int16_t Encoder1_RotationCounter; |
+| -static int16_t encoder2_RotationCounter; |
+| -static uint16_t Encoder_SpeedCounter;    |
+| -static uint16_t encoder2_SpeedCounter;   |
+| -static bool flagMeasureSpeed;            |
+| -static bool flagMeasureRotation;         |
+|                                           |
+|-------------------------------------------|
+
+*/
+
+
 #ifndef RotaryIncrementalEncoder_h
 #define RotaryIncrementalEncoder_h
 
+//*** LIBRARIES ***
 #include <arduino.h>
 
 class RotaryIncrementalEncoder
 {
   public:
-    // Constructor
+    //*** CONSTRUCTOR ***
     RotaryIncrementalEncoder(uint8_t encoderID);
 
-    // Functions
-
+    //*** FUNCTIONS ***
     // Velocity
     void StartSpeedMeasurement();
     void StopSpeedMeasurement();
@@ -38,12 +67,12 @@ class RotaryIncrementalEncoder
     void StopRotationMeasurement();
     int16_t GetRotation();
 
+  private:
     // Static functions
     static void handleInterruptA();
     static void handleInterruptC();
  
-  private:
-     // Attributs
+     //*** VARIABLES ***
     uint8_t encoderID;
      
     uint8_t hardwarePinEncoderSensorA;
@@ -55,9 +84,9 @@ class RotaryIncrementalEncoder
     unsigned long timeMilllisecond;
 
     // Static members   
-    static int16_t encoder1_RotationCounter;
+    static int16_t Encoder1_RotationCounter;
     static int16_t encoder2_RotationCounter;
-    static uint16_t encoder1_SpeedCounter;
+    static uint16_t Encoder_SpeedCounter;
     static uint16_t encoder2_SpeedCounter;
     static bool flagMeasureSpeed; 
     static bool flagMeasureRotation;

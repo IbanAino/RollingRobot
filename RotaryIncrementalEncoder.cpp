@@ -2,9 +2,9 @@
 #include <arduino.h>
 
 // Static variables declarations
-uint16_t RotaryIncrementalEncoder::encoder1_SpeedCounter;
+uint16_t RotaryIncrementalEncoder::Encoder_SpeedCounter;
 uint16_t RotaryIncrementalEncoder::encoder2_SpeedCounter;
-int16_t RotaryIncrementalEncoder::encoder1_RotationCounter;
+int16_t RotaryIncrementalEncoder::Encoder1_RotationCounter;
 int16_t RotaryIncrementalEncoder::encoder2_RotationCounter;
 bool RotaryIncrementalEncoder::flagMeasureSpeed;
 bool RotaryIncrementalEncoder::flagMeasureRotation;
@@ -46,7 +46,7 @@ void RotaryIncrementalEncoder::StartSpeedMeasurement(){
   flagMeasureSpeed = true;
   
   // Reset couteres and timer
-  encoder1_SpeedCounter = 0;
+  Encoder_SpeedCounter = 0;
   encoder2_SpeedCounter = 0;
   timeMilllisecond = millis();
 }
@@ -58,9 +58,9 @@ void RotaryIncrementalEncoder::StopSpeedMeasurement(){
 int16_t RotaryIncrementalEncoder::GetSpeed(){
   
   if(encoderID == 1){
-    int16_t motorSpeed = (encoder1_SpeedCounter * 100)/(millis() - timeMilllisecond);
+    int16_t motorSpeed = (Encoder_SpeedCounter * 100)/(millis() - timeMilllisecond);
     timeMilllisecond = millis();
-    encoder1_SpeedCounter = 0;
+    Encoder_SpeedCounter = 0;
     return(motorSpeed);
   }
   else if(encoderID == 2){
@@ -82,7 +82,7 @@ void RotaryIncrementalEncoder::StopRotationMeasurement(){
 int16_t RotaryIncrementalEncoder::GetRotation(){
   switch(encoderID){
     case 1 :
-      return(encoder1_RotationCounter);
+      return(Encoder1_RotationCounter);
     break;
     case 2 :
       return(encoder2_RotationCounter);
@@ -94,22 +94,22 @@ int16_t RotaryIncrementalEncoder::GetRotation(){
 static void RotaryIncrementalEncoder::handleInterruptA(){
   // Speed measurement
   if(flagMeasureSpeed){
-    encoder1_SpeedCounter++;
+    Encoder_SpeedCounter++;
   }
   
   // Rotation measurement
   if(flagMeasureRotation){
     if (digitalRead(2) == HIGH) {
       if (digitalRead(3) == LOW) {
-        encoder1_RotationCounter++;
+        Encoder1_RotationCounter++;
       } else {
-        encoder1_RotationCounter--;
+        Encoder1_RotationCounter--;
       }
     } else {
       if (digitalRead(3) == LOW) {
-        encoder1_RotationCounter--;
+        Encoder1_RotationCounter--;
       } else {
-        encoder1_RotationCounter++;
+        Encoder1_RotationCounter++;
       }
     }
   }
