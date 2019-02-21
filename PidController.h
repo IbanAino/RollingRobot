@@ -11,8 +11,8 @@ class PidController
     PidController(float kP, float kI, float kD, float outputMin, float outputMax);
     
     //*** FUNCTIONS ***
-    float setSetPoint(float setPoint);
-    float compute(float measurement);
+    float SetSetPoint(float setPoint);
+    float Compute(float measurement);
 
   private:
     //*** VARIABLES ***

@@ -14,14 +14,14 @@ PidController::PidController(float kP, float kI, float kD, float outputMin, floa
 }
 
 //*** FUNCTIONS ***
-float PidController::setSetPoint(float setPoint){
+float PidController::SetSetPoint(float setPoint){
   this -> setPoint = setPoint;
 }
 
-float PidController::compute(float measurement){
+float PidController::Compute(float measurement){
   float error = setPoint - measurement;
 
-  outputVal = outputVal * kP;
+  outputVal += (error * kP);
   
   return(outputVal);
 }

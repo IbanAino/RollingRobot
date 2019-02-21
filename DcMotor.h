@@ -36,6 +36,7 @@
 #include <arduino.h>
 #include "RotaryIncrementalEncoder.h"
 #include <AutoPID.h>
+#include "PidController.h"
 
 // Set Timer2 to run the PID several times per second inside an Interrupt Service Routine
 extern "C" void TIMER2_COMPA_vect(void)  __attribute__ ((signal));
@@ -60,6 +61,7 @@ class DcMotor
     //*** OBJECTS ***
     RotaryIncrementalEncoder* Encoder;
     AutoPID* myPID;
+    PidController* MyPidController;
 
     //*** VARIABLES ***
     uint8_t motorID;

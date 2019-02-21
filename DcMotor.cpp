@@ -27,6 +27,7 @@ REGISTERS DOCUMENTATION FOR TIMER2 :
 #include "DcMotor.h"
 #include <arduino.h>
 #include <AutoPID.h>
+#include "PidController.h"
 
 
 //*** Static variables declarations ***
@@ -54,6 +55,8 @@ DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hard
   myPID->setTimeStep(10);
   myPID->setBangBang(100);
   Encoder->StartSpeedMeasurement();
+
+  MyPidController = new PidController(0.1, 1, 1, 0, 255);
 
   //╔═══ ISR settings block ═══╗
   // Set Timer2 to run the PID several times per second inside an Interrupt Service Routine
@@ -87,6 +90,7 @@ void DcMotor::setMotorSense(bool sense){
 
 void DcMotor::setMotorSpeed(uint8_t motorSpeed){
   desiredMotorSpeed = motorSpeed;
+  MyPidController -> SetSetPoint(motorSpeed);
 }
 
 //╔═══ ISR Functions block ═══╗
@@ -104,23 +108,27 @@ void DcMotor::IsrFunction(){
       analogWrite(7, dcMotorObjects[i]->outputVal);
     }
   }*/
-  double desiredMotorSpeed = dcMotorObjects[1]->desiredMotorSpeed;
-  double speedMotor = dcMotorObjects[1]->Encoder->GetSpeed();
+  //double desiredMotorSpeed = dcMotorObjects[1]->desiredMotorSpeed;
+  //double speedMotor = dcMotorObjects[1]->Encoder->GetSpeed();
 
-  double error = desiredMotorSpeed - speedMotor;
+  //double error = desiredMotorSpeed - speedMotor;
 
-  dcMotorObjects[1]->outputVal += (error * 0.01);
+  //dcMotorObjects[1]->outputVal += (error * 0.01);
 
+  //double tempSpeedMeasurement = dcMotorObjects[1]->Encoder->GetSpeed();
+  //double tempMotorSpeed = dcMotorObjects[1]->MyPidController->Compute(dcMotorObjects[1]->Encoder->GetSpeed());
+  //analogWrite(7, tempMotorSpeed);
+  analogWrite(7, dcMotorObjects[1]->MyPidController->Compute(dcMotorObjects[1]->Encoder->GetSpeed()));
+/*
+  Serial.print(dcMotorObjects[1]->Encoder->GetSpeed());
+  Serial.print(", ");
+  Serial.print(tempMotorSpeed);
+  Serial.print(", ");
   Serial.print(desiredMotorSpeed);
-  Serial.print(", ");
-  Serial.print(speedMotor);
-  Serial.print(", ");
-  Serial.print(error);
   //Serial.print(", ");
   //Serial.print(dcMotorObjects[1]->outputVal);
   Serial.println();
-
-  analogWrite(7, dcMotorObjects[1]->outputVal);
+  */
 }
 
 ISR(TIMER2_COMPA_vect){
