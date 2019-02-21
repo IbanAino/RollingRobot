@@ -23,7 +23,7 @@ void setup() {
 
   //motor2 = new DcMotor(2, 32, 33);
   
-  motor1 -> setMotorSpeed(100);
+  motor1 -> setMotorSpeed(120);
 }
 
 
@@ -31,5 +31,5 @@ void setup() {
 
 void loop() {
    //digitalWrite(13, state); 
-   motor1 -> setMotorSpeed(100);
+   //motor1 -> setMotorSpeed(100);
 }

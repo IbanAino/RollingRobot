@@ -8,17 +8,17 @@
   //    R      R      R      R     R     R/W    R/W    R/W
 
   // TCCR2A 
-  //    7      6      5      4      3     2      1     0
-  //┌───┬───┬───┬───┬───┬───┬───┬───┐
+  //   7      6      5      4      3      2      1      0
+  //|------|------|------|------|------|------|------|------|
   // COM2A1 COM2A0 COM2B1 COM2B0   -      -    WGM21  WGM20     TCCR2A (ATMEGA 2560)
-  //└───┴───┴───┴───┴───┴───┴───┴───┘
+  //|------|------|------|------|------|------|------|------|
   //   R/W    R/W   R/W    R/W     R      R    R/W    R/W
 
   // TCCR2B
-  //    7      6      5      4      3     2      1     0
-  //┌───┬───┬───┬───┬───┬───┬───┬───┐
+  //   7      6      5      4      3      2      1      0
+  //|------|------|------|------|------|------|------|------|
   //  FOC2A  FOC2B    -      -   WGM22   CS22   CS21   CS20      TCCR2B (ATMEGA 2560)
-  //└───┴───┴───┴───┴───┴───┴───┴───┘
+  //|------|------|------|------|------|------|------|------|
   //    W      W      R      R    R/W    R/W    R/W    R/W
 
 //*** LIBRARIES ***
@@ -95,11 +95,10 @@ void DcMotor::setMotorSense(bool sense){
 
 void DcMotor::setMotorSpeed(uint8_t motorSpeed){
 
-  //desiredMotorSpeed = motorSpeed;
+  desiredMotorSpeed = motorSpeed;
   //motorSpeedMeasure = Encoder1->GetSpeed(); 
   //myPID->run();
   //analogWrite(hardwarePinoutSpeed, outputVal);
-  Serial.println(outputVal);
 /*
   Serial.print(desiredMotorSpeed);
   Serial.print(", ");
@@ -127,34 +126,23 @@ void DcMotor::IsrFunction(){
       analogWrite(7, dcMotorObjects[i]->outputVal);
     }
   }*/
-        // Get current speed :
-      //dcMotorObjects[1]->motorSpeedMeasure = 60;
-      // Compute PID :
-      //dcMotorObjects[1]->myPID->run();
-      // Control the motor :
-      //analogWrite(7, dcMotorObjects[1]->outputVal);
-      //analogWrite(7, dcMotorObjects[1]->motorSpeedMeasure);
+  double desiredMotorSpeed = dcMotorObjects[1]->desiredMotorSpeed;
+  double speedMotor = dcMotorObjects[1]->Encoder1->GetSpeed();
 
-    //dcMotorObjects[1]->motorSpeedMeasure = dcMotorObjects[1]->Encoder1->GetSpeed();
+  double error = desiredMotorSpeed - speedMotor;
 
-    double speedMotor = dcMotorObjects[1]->Encoder1->GetSpeed();
-    speedMotor = 130;
-    double error = 120 - speedMotor;
-    
-    dcMotorObjects[1]->outputVal = dcMotorObjects[1]->outputVal + 1;
+  dcMotorObjects[1]->outputVal += (error * 0.01);
 
-    double out = dcMotorObjects[1]->outputVal;
-    
-    isrPidOutput++;
-    
-    if(out < 0){
-      out = 0;
-    }
-    if(out > 255){
-      out = 255;
-    }
+  Serial.print(desiredMotorSpeed);
+  Serial.print(", ");
+  Serial.print(speedMotor);
+  Serial.print(", ");
+  Serial.print(error);
+  Serial.print(", ");
+  Serial.print(dcMotorObjects[1]->outputVal);
+  Serial.println();
 
-    analogWrite(7, isrPidOutput);
+  analogWrite(7, dcMotorObjects[1]->outputVal);
 }
 
 ISR(TIMER2_COMPA_vect){
