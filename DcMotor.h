@@ -27,32 +27,29 @@ extern "C" void TIMER2_COMPA_vect(void)  __attribute__ ((signal));
 class DcMotor
 {  
   public:
-    // Constructor
+    //*** CONSTRUCTOR ***
     DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2);
 
-    // Functions
+    //*** FUNCTIONS ***
     void setMotorSpeed(uint8_t motorSpeed);
     void setMotorPosition();
     void setMotorSense(bool sense);
 
-    // Static function
-    //═══ ISR Functions block ═══
+    //╔═══ ISR Functions block ═══╗
     friend void TIMER2_COMPA_vect(void);
     static void IsrFunction();
-    //══════════════════
+    //╚══════════════════╝
 
   private:
-    // Objects
-
+    //*** OBJECTS ***
     RotaryIncrementalEncoder* Encoder1;
     AutoPID* myPID;
 
-
-    // Variables
-
+    //*** VARIABLES ***
     uint8_t motorID;
     uint8_t hardwarePinHStructureIN1;
     uint8_t hardwarePinHStructureIN2;
+    static DcMotor* dcMotorObjects[3];
   
     //PID settings and gains
     #define OUTPUT_MIN 0
@@ -67,7 +64,11 @@ class DcMotor
     #define KD 0.1
     */
     
-    double motorSpeedMeasure, desiredMotorSpeed, outputVal;
+    double desiredMotorSpeed;
+    double outputVal;
+    double motorSpeedMeasure;
+
+    static volatile double isrPidOutput;
     
     // Hardware pinout
     #define hardwarePinoutSpeed 7
