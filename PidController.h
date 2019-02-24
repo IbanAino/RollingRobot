@@ -49,6 +49,8 @@ class PidController
     float kI;
     float kD;
     float setPoint;
+    float integralError;
+    float previousError;
     float outputMin;
     float outputMax;
     float outputVal;

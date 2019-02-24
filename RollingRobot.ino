@@ -6,6 +6,10 @@
 
 //volatile byte state = LOW;
 
+// Debug variables
+int period = 100;
+unsigned long time_now = 0;
+
 //*** OBJECTS ***
 
 DcMotor* motor1;
@@ -20,7 +24,7 @@ void setup() {
 
   motor1 = new DcMotor(1, 28, 29, 7);
   motor1 -> setMotorSense(true);
-  motor1 -> setMotorSpeed(120);
+  motor1 -> setMotorSpeed(100);
 
   motor2 = new DcMotor(2, 32, 33, 8);
   motor2 -> setMotorSense(false);
@@ -31,5 +35,5 @@ void setup() {
 //*** MAIN LOOP ***
 
 void loop() {
-
+  
 }

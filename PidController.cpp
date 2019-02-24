@@ -9,8 +9,9 @@ PidController::PidController(float kP, float kI, float kD, float outputMin, floa
   this -> kD = kD;
   this -> outputMin = outputMin;
   this -> outputMax = outputMax;
-
   outputVal = 0;
+  integralError = 0;
+  previousError = 0;
 }
 
 //*** FUNCTIONS ***
@@ -21,7 +22,18 @@ float PidController::SetSetPoint(float setPoint){
 float PidController::Compute(float measurement){
   float error = setPoint - measurement;
 
-  outputVal += (error * kP);
+  integralError += error;
+
+  float derivativeError = (error - previousError);
+  previousError = error;
+
+  outputVal += (error * kP + integralError * kI + derivativeError * kD);
+
+  if(outputVal > outputMax){
+    outputVal = outputMax;
+  }else if(outputVal < outputMin){
+    outputVal = outputMin;
+  }
   
   return(outputVal);
 }
