@@ -10,6 +10,7 @@ Class description
 
 //*** LIBRARIES ***
 #include <arduino.h>
+#include "DcMotor.h"
 
 class DifferentialDriveRobotArchitecture
 {  
@@ -25,9 +26,12 @@ class DifferentialDriveRobotArchitecture
   
   private:
   //*** OBJECTS ***
+  DcMotor* motor1;
+  DcMotor* motor2;
 
 
   //*** VARIABLES ***
+  uint8_t robotSpeed;
 
 };    
 
