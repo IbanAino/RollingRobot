@@ -18,6 +18,8 @@ This PID does not have any time manager because its functions are supposed to be
 | -float kI                                 |
 | -float kD                                 |
 | -float setPoint                           |
+| -float integralError                      |
+| -float previousError                      |
 | -float outputMin                          |
 | -float outputMax                          |
 | -float outputVal                          |
