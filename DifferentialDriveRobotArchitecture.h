@@ -16,7 +16,7 @@ class DifferentialDriveRobotArchitecture
 {  
   public:
     //*** CONSTRUCTOR ***
-    DifferentialDriveRobotArchitecture();
+    DifferentialDriveRobotArchitecture(uint8_t wheelRadius, uint8_t distanceWheelCenter, uint8_t reductionRatio);
   
     //*** FUNCTIONS ***
     void SetSpeed(uint8_t robotSpeed);

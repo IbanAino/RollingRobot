@@ -4,13 +4,13 @@
 
 
 //*** CONSTRUCTOR ***
-DifferentialDriveRobotArchitecture::DifferentialDriveRobotArchitecture(){
+DifferentialDriveRobotArchitecture::DifferentialDriveRobotArchitecture(uint8_t wheelRadius, uint8_t distanceWheelCenter, uint8_t reductionRatio){
   motor1 = new DcMotor(1, 28, 29, 7);
   motor2 = new DcMotor(2, 32, 33, 8);
   robotSpeed = 0;
-  wheelRadius = 32;
-  distanceWheelCenter = 74;
-  reductionRatio = 64;
+  this -> wheelRadius = wheelRadius;
+  this -> distanceWheelCenter = distanceWheelCenter;
+  this -> reductionRatio = reductionRatio;
 }
 
 //*** FUNCTIONS ***
