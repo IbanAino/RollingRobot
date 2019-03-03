@@ -16,8 +16,6 @@ void setup() {
   robot = new DifferentialDriveRobotArchitecture();
   robot -> SetSpeed(100); // speed in mm/s
   robot -> MoveForward();
-
-  Serial.println(robot -> angularWheelSpeed);
 }
 
 

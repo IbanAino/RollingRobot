@@ -2,7 +2,7 @@
 #include <arduino.h>
 
 // Static variables declarations
-uint16_t RotaryIncrementalEncoder::Encoder_SpeedCounter;
+uint16_t RotaryIncrementalEncoder::encoder1_SpeedCounter;
 uint16_t RotaryIncrementalEncoder::encoder2_SpeedCounter;
 int16_t RotaryIncrementalEncoder::Encoder1_RotationCounter;
 int16_t RotaryIncrementalEncoder::encoder2_RotationCounter;
@@ -46,7 +46,7 @@ void RotaryIncrementalEncoder::StartSpeedMeasurement(){
   flagMeasureSpeed = true;
   
   // Reset couteres and timer
-  Encoder_SpeedCounter = 0;
+  encoder1_SpeedCounter = 0;
   encoder2_SpeedCounter = 0;
   timeMilllisecond = millis();
 }
@@ -55,12 +55,12 @@ void RotaryIncrementalEncoder::StopSpeedMeasurement(){
   flagMeasureSpeed = false;
 }
 
-float RotaryIncrementalEncoder::GetSpeed(){
+float RotaryIncrementalEncoder::GetSpeed(){ // retrune motor speed in rotations/seconds
   
   if(encoderID == 1){
-    float motorSpeed = (Encoder_SpeedCounter * 1000)/(millis() - timeMilllisecond);
+    float motorSpeed = (encoder1_SpeedCounter * 1000)/(millis() - timeMilllisecond);
     timeMilllisecond = millis();
-    Encoder_SpeedCounter = 0;
+    encoder1_SpeedCounter = 0;
     return(motorSpeed / 11); // 11 is the encoder wheel segmentation : 1 rotation = 11 ticks
   }
   else if(encoderID == 2){
@@ -94,7 +94,7 @@ int16_t RotaryIncrementalEncoder::GetRotation(){
 static void RotaryIncrementalEncoder::handleInterruptA(){
   // Speed measurement
   if(flagMeasureSpeed){
-    Encoder_SpeedCounter++;
+    encoder1_SpeedCounter++;
   }
   
   // Rotation measurement

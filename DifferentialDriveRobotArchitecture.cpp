@@ -19,14 +19,13 @@ void DifferentialDriveRobotArchitecture::SetSpeed(uint8_t robotSpeed){
 
 void DifferentialDriveRobotArchitecture::MoveForward(){
   // Compute motor speed from global robot speed
-  angularWheelSpeed = robotSpeed / (3.14 * 2 * wheelRadius);
+  float angularWheelSpeed = robotSpeed / (3.14 * 2 * wheelRadius);
+  float angularMotorSpeed = angularWheelSpeed * reductionRatio;
   
   motor1 -> setMotorSense(true);
   motor2 -> setMotorSense(true);
-  motor1 -> setMotorSpeed(angularWheelSpeed * 40);
-  motor2 -> setMotorSpeed(angularWheelSpeed * 40);
-  //motor1 -> setMotorSpeed(100);
-  //motor2 -> setMotorSpeed(20);
+  motor1 -> setMotorSpeed(angularMotorSpeed);
+  motor2 -> setMotorSpeed(angularMotorSpeed);
 }
 
 void DifferentialDriveRobotArchitecture::FollowCurve(uint16_t ray, bool trigoSense){

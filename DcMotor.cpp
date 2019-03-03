@@ -54,7 +54,7 @@ DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hard
   // Set encoder and PID
   Encoder = new RotaryIncrementalEncoder(motorID);
   Encoder->StartSpeedMeasurement();
-  MyPidController = new PidController(0.1, 0.001, 3, 0, 255);
+  MyPidController = new PidController(0.2, 0.001, 3, 0, 255);
 
   //╔═══ ISR settings block ═══╗
   // Set Timer2 to run the PID several times per second inside an Interrupt Service Routine

@@ -43,7 +43,7 @@ You can upgrade this code to add a third encoder, plugged on pins 20 and 21.
 | -unsigned long timeMilllisecond;          |
 | -static int16_t Encoder1_RotationCounter; |
 | -static int16_t encoder2_RotationCounter; |
-| -static uint16_t Encoder_SpeedCounter;    |
+| -static uint16_t encoder1_SpeedCounter;    |
 | -static uint16_t encoder2_SpeedCounter;   |
 | -static bool flagMeasureSpeed;            |
 | -static bool flagMeasureRotation;         |
@@ -95,7 +95,7 @@ class RotaryIncrementalEncoder
     // Static members   
     static int16_t Encoder1_RotationCounter;
     static int16_t encoder2_RotationCounter;
-    static uint16_t Encoder_SpeedCounter;
+    static uint16_t encoder1_SpeedCounter;
     static uint16_t encoder2_SpeedCounter;
     static bool flagMeasureSpeed; 
     static bool flagMeasureRotation;
