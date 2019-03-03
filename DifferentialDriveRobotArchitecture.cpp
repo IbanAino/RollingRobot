@@ -9,7 +9,8 @@ DifferentialDriveRobotArchitecture::DifferentialDriveRobotArchitecture(){
   motor2 = new DcMotor(2, 32, 33, 8);
   robotSpeed = 0;
   wheelRadius = 32;
-  distanceBetweenWheels = 148;
+  distanceWheelCenter = 74;
+  reductionRatio = 64;
 }
 
 //*** FUNCTIONS ***
@@ -18,9 +19,8 @@ void DifferentialDriveRobotArchitecture::SetSpeed(uint8_t robotSpeed){
 }
 
 void DifferentialDriveRobotArchitecture::MoveForward(){
-  // Compute motor speed from global robot speed
-  float angularWheelSpeed = robotSpeed / (3.14 * 2 * wheelRadius);
-  float angularMotorSpeed = angularWheelSpeed * reductionRatio;
+
+  float angularMotorSpeed = LinearSpeedToMotorAngularSpeed(robotSpeed);
   
   motor1 -> setMotorSense(true);
   motor2 -> setMotorSense(true);
@@ -28,8 +28,27 @@ void DifferentialDriveRobotArchitecture::MoveForward(){
   motor2 -> setMotorSpeed(angularMotorSpeed);
 }
 
-void DifferentialDriveRobotArchitecture::FollowCurve(uint16_t ray, bool trigoSense){
-  uint8_t rightSpeed;
-  uint8_t leftSpeed;
+void DifferentialDriveRobotArchitecture::FollowCurve(float ray, bool trigoSense){
+  motor1 -> setMotorSense(true);
+  motor2 -> setMotorSense(true);
+
+  float rightSpeed;
+  float leftSpeed;
   
+  if(trigoSense){
+    rightSpeed = ((ray + distanceWheelCenter) / ray) * robotSpeed;
+    leftSpeed = ((ray - distanceWheelCenter) / ray) * robotSpeed;
+  }else{
+    rightSpeed = ((ray - distanceWheelCenter) / ray) * robotSpeed;
+    leftSpeed = ((ray + distanceWheelCenter) / ray) * robotSpeed;
+  }
+  
+  motor1 -> setMotorSpeed(LinearSpeedToMotorAngularSpeed(rightSpeed));
+  motor2 -> setMotorSpeed(LinearSpeedToMotorAngularSpeed(leftSpeed));
+}
+
+float DifferentialDriveRobotArchitecture::LinearSpeedToMotorAngularSpeed(float linearSpeed){
+  float wheelAngularSpeed = linearSpeed / (3.14 * 2 * wheelRadius);
+  float motorAngularSpeed = wheelAngularSpeed * reductionRatio;
+  return(motorAngularSpeed);
 }

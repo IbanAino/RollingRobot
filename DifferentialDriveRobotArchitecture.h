@@ -21,20 +21,23 @@ class DifferentialDriveRobotArchitecture
     //*** FUNCTIONS ***
     void SetSpeed(uint8_t robotSpeed);
     void MoveForward();
-    void FollowCurve(uint16_t ray, bool trigoSense);
+    void FollowCurve(float ray, bool trigoSense); // ray in mm
   
   
   private:
+    float LinearSpeedToMotorAngularSpeed(float linearSpeed);
+
+  
     //*** OBJECTS ***
     DcMotor* motor1;
     DcMotor* motor2;
   
   
     //*** VARIABLES ***
-    uint8_t wheelRadius = 32;
-    uint8_t distanceBetweenWheels = 148;
-    uint8_t motorReductionRation = 40;
-    uint8_t reductionRatio = 64;
+    // Robot hardware caracteristics :
+    uint8_t wheelRadius;
+    uint8_t distanceWheelCenter;
+    uint8_t reductionRatio;
     
     uint8_t robotSpeed;
 

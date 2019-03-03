@@ -15,7 +15,8 @@ void setup() {
   
   robot = new DifferentialDriveRobotArchitecture();
   robot -> SetSpeed(100); // speed in mm/s
-  robot -> MoveForward();
+  //robot -> MoveForward();
+  robot -> FollowCurve(300, false);
 }
 
 
