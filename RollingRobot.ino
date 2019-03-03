@@ -1,11 +1,12 @@
 //*** LIBRARIES ***
 
 #include "DifferentialDriveRobotArchitecture.h"
-
+#include "TricycleRobotArchitecture.h"
 
 //*** OBJECTS ***
 
-DifferentialDriveRobotArchitecture* robot;
+DifferentialDriveRobotArchitecture* robotDifferentialDrive;
+TricycleRobotArchitecture* robotTricycle;
 
 
 //*** SETUP ***
@@ -13,10 +14,15 @@ DifferentialDriveRobotArchitecture* robot;
 void setup() {
   Serial.begin(115200);
   
-  robot = new DifferentialDriveRobotArchitecture(32, 74, 64);
-  robot -> SetSpeed(100); // speed in mm/s
-  //robot -> MoveForward();
-  robot -> FollowCurve(300, false);
+  robotDifferentialDrive = new DifferentialDriveRobotArchitecture(32, 74, 64);  
+  robotDifferentialDrive -> SetSpeed(120); // speed in mm/s
+  //robotDifferentialDrive -> MoveForward();
+  robotDifferentialDrive -> FollowCurve(600, false);
+
+  robotTricycle = new TricycleRobotArchitecture(98);
+  robotTricycle -> FollowCurve(600, false);
+  Serial.println(robotTricycle -> angle);
+  
 }
 
 
