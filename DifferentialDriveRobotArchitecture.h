@@ -24,14 +24,21 @@ class DifferentialDriveRobotArchitecture
   void FollowCurve(uint16_t ray, bool trigoSense);
   
   
-  private:
+  //private:
   //*** OBJECTS ***
   DcMotor* motor1;
   DcMotor* motor2;
 
 
   //*** VARIABLES ***
+  uint8_t wheelRadius = 32;
+  uint8_t distanceBetweenWheels = 148;
+  uint8_t motorReductionRation = 40;
+  
   uint8_t robotSpeed;
+
+  float angularWheelSpeed;
+
 
 };    
 

@@ -58,6 +58,7 @@ DcMotor::DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hard
 
   //╔═══ ISR settings block ═══╗
   // Set Timer2 to run the PID several times per second inside an Interrupt Service Routine
+  // THE TIMER IS SET TO 30 Hz
   pinMode(13, OUTPUT);
   DDRH |= (1<<6); // pinMode 9 output
   DDRB |= (1<<4); // pinmode 10 output
@@ -86,13 +87,13 @@ void DcMotor::setMotorSense(bool sense){
   }
 }
 
-void DcMotor::setMotorSpeed(uint8_t motorSpeed){
+void DcMotor::setMotorSpeed(float motorSpeed){
   MyPidController -> SetSetPoint(motorSpeed);
 }
 
 //╔═══ ISR Functions block ═══╗
 void DcMotor::IsrFunction(){
-  //digitalWrite(13, digitalRead(13) ^ 1);
+  digitalWrite(13, digitalRead(13) ^ 1);
   // Call all of the DcMotor objects instanciated stored in the array dcMotorObjects
   for(uint8_t i = 1; i < 3; i++){
     if(dcMotorObjects[i] != NULL){

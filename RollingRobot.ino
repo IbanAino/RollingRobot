@@ -11,9 +11,13 @@ DifferentialDriveRobotArchitecture* robot;
 //*** SETUP ***
 
 void setup() {
+  Serial.begin(115200);
+  
   robot = new DifferentialDriveRobotArchitecture();
-  robot -> SetSpeed(100);
+  robot -> SetSpeed(100); // speed in mm/s
   robot -> MoveForward();
+
+  Serial.println(robot -> angularWheelSpeed);
 }
 
 

@@ -49,7 +49,7 @@ class DcMotor
     DcMotor(uint8_t motorID, uint8_t hardwarePinHStructureIN1, uint8_t hardwarePinHStructureIN2, uint8_t hardwarePinHStructurePWM);
 
     //*** FUNCTIONS ***
-    void setMotorSpeed(uint8_t motorSpeed);
+    void setMotorSpeed(float motorSpeed);
     void setMotorPosition();
     void setMotorSense(bool sense);
     

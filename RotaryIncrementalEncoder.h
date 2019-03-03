@@ -69,7 +69,7 @@ class RotaryIncrementalEncoder
     // Velocity
     void StartSpeedMeasurement();
     void StopSpeedMeasurement();
-    int16_t GetSpeed(); // Result in rotations per seconds
+    float GetSpeed(); // Result in rotations per seconds
 
     // Rotation
     void StartRotationMeasurement();

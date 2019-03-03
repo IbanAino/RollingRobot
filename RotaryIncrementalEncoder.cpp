@@ -31,10 +31,10 @@ RotaryIncrementalEncoder::RotaryIncrementalEncoder(uint8_t encoderID){
 
   switch(encoderID){
     case 1 :
-      attachInterrupt(digitalPinToInterrupt(hardwarePinEncoderSensorA), handleInterruptA, CHANGE); // Encoder 1
+      attachInterrupt(digitalPinToInterrupt(hardwarePinEncoderSensorA), handleInterruptA, RISING); // Encoder 1
     break;
     case 2 :
-      attachInterrupt(digitalPinToInterrupt(hardwarePinEncoderSensorC), handleInterruptC, CHANGE); // Encoder 2
+      attachInterrupt(digitalPinToInterrupt(hardwarePinEncoderSensorC), handleInterruptC, RISING); // Encoder 2
     break;
   }
 }
@@ -55,19 +55,19 @@ void RotaryIncrementalEncoder::StopSpeedMeasurement(){
   flagMeasureSpeed = false;
 }
 
-int16_t RotaryIncrementalEncoder::GetSpeed(){
+float RotaryIncrementalEncoder::GetSpeed(){
   
   if(encoderID == 1){
-    int16_t motorSpeed = (Encoder_SpeedCounter * 100)/(millis() - timeMilllisecond);
+    float motorSpeed = (Encoder_SpeedCounter * 1000)/(millis() - timeMilllisecond);
     timeMilllisecond = millis();
     Encoder_SpeedCounter = 0;
-    return(motorSpeed);
+    return(motorSpeed / 11); // 11 is the encoder wheel segmentation : 1 rotation = 11 ticks
   }
   else if(encoderID == 2){
-    int16_t motorSpeed = (encoder2_SpeedCounter * 100)/(millis() - timeMilllisecond);
+    float motorSpeed = (encoder2_SpeedCounter * 1000)/(millis() - timeMilllisecond);
     timeMilllisecond = millis();
     encoder2_SpeedCounter = 0;
-    return(motorSpeed);
+    return(motorSpeed / 11);
   } 
 }
 
