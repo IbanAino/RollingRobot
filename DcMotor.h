@@ -52,6 +52,8 @@ class DcMotor
     void setMotorSpeed(float motorSpeed); // speed in rotations/second
     void setMotorPosition();
     void setMotorSense(bool sense);
+    float GetMotorRotations();
+    void ResetMotorRotationsCounter();
     
   private:
     //╔═══ ISR Functions block ═══╗

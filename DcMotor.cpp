@@ -91,6 +91,14 @@ void DcMotor::setMotorSpeed(float motorSpeed){
   MyPidController -> SetSetPoint(motorSpeed);
 }
 
+float DcMotor::GetMotorRotations(){
+  return (Encoder -> GetRotation());
+}
+
+void DcMotor::ResetMotorRotationsCounter(){
+  Encoder -> ResetRotationsCounter();
+}
+
 //╔═══ ISR Functions block ═══╗
 void DcMotor::IsrFunction(){
   digitalWrite(13, digitalRead(13) ^ 1);
