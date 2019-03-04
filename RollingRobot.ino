@@ -21,7 +21,7 @@ void setup() {
 
   robotTricycle = new TricycleRobotArchitecture(98);
   robotTricycle -> FollowCurve(600, false);
-  Serial.println(robotTricycle -> angle);
+  //Serial.println(robotTricycle -> angle);
   
 }
 

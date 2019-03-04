@@ -20,8 +20,6 @@ class TricycleRobotArchitecture
     //*** FUNCTIONS ***
     void FollowCurve(float ray, bool trigoSense);
 
-        float angle;
-
   private:
     //*** OBJECTS ***
     Servo* servoMotor;

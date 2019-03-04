@@ -14,7 +14,7 @@ TricycleRobotArchitecture::TricycleRobotArchitecture(uint8_t distanceCenterRotar
 
 //*** FUNCTIONS ***
 void TricycleRobotArchitecture::FollowCurve(float ray, bool trigoSense){
-  angle = (M_PI / 2) - atan(ray / distanceCenterRotaryWheel);
+  float angle = (M_PI / 2) - atan(ray / distanceCenterRotaryWheel);
   float rotationSignal;
   
   if(trigoSense){

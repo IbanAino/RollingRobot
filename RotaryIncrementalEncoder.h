@@ -75,6 +75,7 @@ class RotaryIncrementalEncoder
     void StartRotationMeasurement();
     void StopRotationMeasurement();
     int16_t GetRotation();
+    void ResetRotationsCounter();
 
   private:
     // Static functions

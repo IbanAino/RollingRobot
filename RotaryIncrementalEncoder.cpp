@@ -90,6 +90,17 @@ int16_t RotaryIncrementalEncoder::GetRotation(){
   }
 }
 
+void RotaryIncrementalEncoder::ResetRotationsCounter(){
+  switch(encoderID){
+    case 1 :
+      Encoder1_RotationCounter = 0;
+    break;
+    case 2 :
+      encoder2_RotationCounter = 0;
+    break;
+  }
+}
+
 // Encoder 1
 static void RotaryIncrementalEncoder::handleInterruptA(){
   // Speed measurement
