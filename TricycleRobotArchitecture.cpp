@@ -18,12 +18,16 @@ void TricycleRobotArchitecture::FollowCurve(float ray, bool trigoSense){
   float rotationSignal;
   
   if(trigoSense){
-    rotationSignal = -854.84 * angle + 1491;
+    rotationSignal = -888.721387 * angle + 1480;
   }else{
-    rotationSignal = 854.84 * angle + 1491;
+    rotationSignal = 888.721387 * angle + 1480;
   }
   
   servoMotor -> writeMicroseconds(rotationSignal);
-  //servoMotor -> writeMicroseconds(1491);
+  //servoMotor -> writeMicroseconds(1480);
+}
+
+void TricycleRobotArchitecture::goStraight(){
+  servoMotor -> writeMicroseconds(1480);
 }
         

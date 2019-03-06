@@ -22,6 +22,7 @@ class DifferentialDriveRobotArchitecture
     void SetSpeed(uint8_t robotSpeed);
     void MoveForward();
     void FollowCurve(float ray, bool trigoSense); // ray in mm
+    float* GetRobotPosition(float rotationsRight, float rotationsLeft);
   
   
   private:

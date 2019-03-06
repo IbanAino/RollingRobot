@@ -3,6 +3,7 @@
 #include "DifferentialDriveRobotArchitecture.h"
 
 
+
 //*** CONSTRUCTOR ***
 DifferentialDriveRobotArchitecture::DifferentialDriveRobotArchitecture(uint8_t wheelRadius, uint8_t distanceWheelCenter, uint8_t reductionRatio){
   motor1 = new DcMotor(1, 28, 29, 7);
@@ -51,4 +52,9 @@ float DifferentialDriveRobotArchitecture::LinearSpeedToMotorAngularSpeed(float l
   float wheelAngularSpeed = linearSpeed / (3.14 * 2 * wheelRadius);
   float motorAngularSpeed = wheelAngularSpeed * reductionRatio;
   return(motorAngularSpeed);
+}
+
+float* DifferentialDriveRobotArchitecture::GetRobotPosition(float rotationsRight, float rotationsLeft){
+  static float robotPosition[3];
+  
 }
